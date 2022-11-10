@@ -10,6 +10,8 @@ import pytz
 import sys
 from termcolor import colored
 
+#prova 
+
 print('Version 0.2.6')
 
 path = ''
@@ -18,7 +20,7 @@ if sys.platform.startswith('linux'):
     path = '/home/ubuntu/AutoSearcher'
 if sys.platform == 'win32':
     #windows
-    path = 'C:\\Users\\loren\\Desktop\\AutoSearcher'
+    path = 'C:\\Users\\loren\\Desktop\\GitHub\\AutoSearcher'
 
 def current_time():
     now = datetime.now(pytz.timezone('Europe/Rome'))
