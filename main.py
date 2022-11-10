@@ -10,8 +10,6 @@ import pytz
 import sys
 from termcolor import colored
 
-#prova 
-
 print('Version 0.2.6')
 
 path = ''
