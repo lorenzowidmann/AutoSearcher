@@ -164,5 +164,3 @@ def size_differential(size):
     elif size == '512GB':
         size_removal = '32GB+64GB+128GB+256GB+1TB'
     return size_removal
-
-#print(items_price_average('https://www.ebay.it/sch/i.html?_from=R40&_nkw=iPhone+12+128GB&_in_kw=3&_ex_kw=mini+pro+max+32GB+64GB+256GB+512GB+1TB+scheda+ricambi+cover+protezione+rotto+batteria+custodia&_sacat=0&_udlo=&_udhi=&LH_Auction=1&_ftrt=901&_ftrv=1&_sabdlo=&_sabdhi=&_samilow=&_samihi=&_sadis=15&_stpos=39100&_sargn=-1%%26saslc%%3D1&_salic=101&_sop=1&_dmd=1&_ipg=60&LH_Sold=1&rt=nc'))
