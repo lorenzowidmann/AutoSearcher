@@ -136,8 +136,8 @@ def timer_trigger(url, url_solded, trigger_timer):
                                     float_phone_shipping = float(phone_shipping[timer_asta.index(info)].getText().replace('+EUR ', '').replace('.','').replace(',','.').replace(' di spedizione', '').replace('Spedizione gratis', '0').replace(' spedizione stimata','').replace('Spedizione non specificata','0'))
                                     
                                     if (float_phone_price + float_phone_shipping) <= items_price_average(url_solded):
-                                        #Minimum ROI percentage (10%)
-                                        if (items_price_average(url_solded) / (float_phone_price + float_phone_shipping)) >= 1.1:
+                                        #Minimum ROI percentage (20%)
+                                        if (items_price_average(url_solded) / (float_phone_price + float_phone_shipping)) >= 1.2:
                                         
                                             if (float_phone_price + float_phone_shipping) >= (items_price_average(url_solded)/4):
                                                 telegram_message(
