@@ -12,6 +12,7 @@ from termcolor import colored
 
 print('Version 0.2.6')
 
+#Find the current os 
 path = ''
 if sys.platform.startswith('linux'):
     #linux
@@ -27,7 +28,7 @@ def current_time():
 
 searching_items = []
 config = configparser.ConfigParser()
-#Tryng the path
+#Tryng the path and add the items to a list
 try:
     config.read(os.path.join(path,'PhoneLinkConfiguration.ini'))
     ITEMS = {}
@@ -142,11 +143,11 @@ if risposta_starter == 'y':
     AutoSearcherFunction.telegram_message('Ricerca iniziata alle: '+str(current_time()))
     print('Searching...')
     schedule.every(1).hours.do(search_phone)
-    i = True
-    while i:
+
+    while True:
         try:
             schedule.run_pending()
             time.sleep(1800)
         except Exception as e:
             AutoSearcherFunction.telegram_message('ERROR: '+str(e))
-            i = False
+            break
