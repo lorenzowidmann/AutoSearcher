@@ -9,8 +9,9 @@ import configparser
 import pytz
 import sys
 from termcolor import colored
+import atexit
 
-print('Version 0.2.6')
+print('Version 0.2.9')
 
 #Find the current os 
 path = ''
@@ -127,21 +128,29 @@ if risposta_starter == 'y':
         if x[0:3] == 'sol':
             solded_phone_array.append(value.replace('%%','%'))
 
+    search_number = 1
     def search_phone(): 
-        print('Searching...')   
-        for x in phone_type_array:
-            item_position = phone_type_array.index(x)
-            AutoSearcherFunction.timer_trigger(
-                selling_phone_array[item_position],
-                solded_phone_array[item_position],
-                '2h'
-            )
-            time.sleep(15)
-        AutoSearcherFunction.telegram_message('Ciclo andato a buon fine '+str(current_time()))
-        print('Ciclo andato a buon fine '+str(current_time()))
+        global search_number
+        print('Search n.'+str(search_number))   
+        if AutoSearcherFunction.night_stopper('00', '05'):
+            for x in phone_type_array:
+                item_position = phone_type_array.index(x)
+                AutoSearcherFunction.timer_trigger(
+                    selling_phone_array[item_position],
+                    solded_phone_array[item_position],
+                    '2h'
+                )
+                time.sleep(15)
+            AutoSearcherFunction.telegram_message('Ciclo andato a buon fine '+str(current_time()))
+            print('Ciclo n.'+str(search_number)+' andato a buon fine '+str(current_time()))
+            search_number = search_number + 1
+
+        else: 
+            AutoSearcherFunction.telegram_message('Ricerca sospesa per la notte')
 
     AutoSearcherFunction.telegram_message('Ricerca iniziata alle: '+str(current_time()))
-    print('Searching...')
+    #Start the first search and the schedule the other
+    search_phone()
     schedule.every(1).hours.do(search_phone)
 
     while True:
@@ -151,3 +160,6 @@ if risposta_starter == 'y':
         except Exception as e:
             AutoSearcherFunction.telegram_message('ERROR: '+str(e))
             break
+
+text = 'AutoSearcher is closing'
+atexit.register(AutoSearcherFunction.exit_handler, text)
