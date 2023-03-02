@@ -1,6 +1,8 @@
 from operator import sub
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime 
+import pytz
 
 #Parole da rimovere per ogni ricerca
 word_remove_list = ['scheda', 'ricambi', 'cover', 'protezione', 'rotto', 'batteria', 'custodia']
@@ -150,7 +152,7 @@ def timer_trigger(url, url_solded, trigger_timer):
                                                     'PREZZO MEDIO: EUR '+str(f'{items_price_average(url_solded):.2f}').replace('.',',') +'\n'+
                                                     phone_link[timer_asta.index(info)]['href'])
 
-#Size number 6
+#Size differential
 def size_differential(size):
     size_removal = ''
     if size == '32GB':
@@ -164,3 +166,21 @@ def size_differential(size):
     elif size == '512GB':
         size_removal = '32GB+64GB+128GB+256GB+1TB'
     return size_removal
+
+#Stop the search during the night and then restart
+def night_stopper(stop_search, restart_search): 
+    now = datetime.now(pytz.timezone('Europe/Rome'))
+    current_time = now.strftime("%H")
+    running = True
+    if stop_search == str(current_time): 
+        running = False
+        print('Search stopped for night')
+    if restart_search == str(current_time): 
+         running = True
+         print('Search restarted')
+    return running
+
+#exit handler function 
+def exit_handler(text):
+    print(text)
+    telegram_message(text)
