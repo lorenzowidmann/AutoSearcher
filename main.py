@@ -11,7 +11,7 @@ import sys
 from termcolor import colored
 import atexit
 
-print('Version 0.2.9')
+print('Version 1.1')
 
 #Find the current os 
 path = ''
@@ -130,9 +130,12 @@ if risposta_starter == 'y':
 
     search_number = 1
     def search_phone(): 
-        global search_number
-        print('Search n.'+str(search_number))   
-        if AutoSearcherFunction.night_stopper('00', '05'):
+        global search_number  
+        #lista ore notturne
+        list_night_hours = ['00', '01', '02', '03', '04', '05', '06'] 
+
+        if AutoSearcherFunction.night_stopper(list_night_hours):
+            print('Search n.'+str(search_number))
             for x in phone_type_array:
                 item_position = phone_type_array.index(x)
                 AutoSearcherFunction.timer_trigger(
@@ -141,7 +144,7 @@ if risposta_starter == 'y':
                     '2h'
                 )
                 time.sleep(15)
-            AutoSearcherFunction.telegram_message('Ciclo andato a buon fine '+str(current_time()))
+            AutoSearcherFunction.telegram_message('Ciclo n.'+str(search_number)+' andato a buon fine '+str(current_time()))
             print('Ciclo n.'+str(search_number)+' andato a buon fine '+str(current_time()))
             search_number = search_number + 1
 
